@@ -8,10 +8,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
-    <body class="bg-slate-800 text-slate-300">
-        <h1 class="text-3xl font-bold underline">
-            Hello world!
-        </h1>
+    <body class="bg-slate-800 text-slate-300 text-3xl h-screen">
         
         {{ $slot }}
     </body>
