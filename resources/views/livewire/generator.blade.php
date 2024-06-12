@@ -2,16 +2,11 @@
 
 use Livewire\Volt\Component;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Url;
+use Livewire\Attributes\Computed;
 
 new class extends Component {
-
-    public array $urls = [];
-
-    public function mount():void
-    {
-        $this->urls = Url::select(['url'])->get()->flatten()->map(fn($i) => $i['url'])->toArray();
-    }
     
     public function createNewWebHook(): void
     {   
@@ -20,6 +15,12 @@ new class extends Component {
         ]);
 
         $this->urls[] = $url->url;
+    }
+
+    #[Computed]
+    public function urls()
+    {
+        return Url::all();
     }
 
     public function getSlug()
@@ -75,9 +76,14 @@ new class extends Component {
             Novo WebHook
         </button>
     
-        <ul class="overflow-y-auto h-[600px]">
-            @foreach ($urls as $url)
-                <li>{{ $url }}</li>
+        <ul class="overflow-y-auto h-[600px] text-lg flex flex-col space-y-2">
+            @foreach ($this->urls as $url)
+                <li class="flex justify-between">
+                    {{ route('handle-requests', $url) }}
+                    <a class="bg-yellow-500 rounded-lg shadow px-4 text-slate-900 hover:bg-opacity-80" href="{{ route('handle-requests', $url) }}?test=1" target="_blank">
+                        test
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>
