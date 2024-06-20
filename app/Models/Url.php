@@ -10,9 +10,7 @@ class Url extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'url',
-    ];
+    protected $guarded = [];
 
     public function requests(): HasMany
     {

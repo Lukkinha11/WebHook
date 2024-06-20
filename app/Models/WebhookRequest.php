@@ -10,13 +10,7 @@ class WebhookRequest extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'url_id',
-        'method',
-        'headers',
-        'ip',
-        'body',
-    ];
+    protected $guarded = [];
     
     protected function casts(): array
     {

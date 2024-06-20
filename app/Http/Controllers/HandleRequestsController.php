@@ -15,14 +15,10 @@ class HandleRequestsController extends Controller
         $ip = request()->ip();
         $body = json_encode(request()->all());
 
-        WebhookRequest::create([
-            'url_id' => 1,
-            'method' => $method,
-            'headers' => $headers,
-            'ip' => $ip,
-            'body' => $body,
-        ]);
+        $url->requests()->create(
+            compact('method', 'headers', 'ip', 'body')
+        );
 
-        return compact('method', 'headers', 'ip', 'body');
+        return response()->noContent();
     }
 }
